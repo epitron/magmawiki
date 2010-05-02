@@ -2,3 +2,4 @@ MAGMAWIKI_CONFIG = YAML::load(File.read(::Rails.root.to_s + "/config/magmawiki_c
 
 I18n.default_locale = MAGMAWIKI_CONFIG[:locale][:default].to_sym
 I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
+CAPTCHA = Captcha::Captcha.new(MAGMAWIKI_CONFIG[:captcha])
