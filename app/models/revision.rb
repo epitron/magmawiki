@@ -29,9 +29,11 @@ MARKUP_ENGINES = {
 class Revision < ActiveRecord::Base
 
   belongs_to :article, :counter_cache => :revision_count
-  has_one :wiki_session
+  belongs_to :wiki_session
   has_many :revisions, :through => :article_id
   has_many :threads
+  
+  attr_accessible :wiki_session_id
 
   def next
     Revision.first(:conditions=>["article_id = ? and updated_at > ?", article_id, updated_at])

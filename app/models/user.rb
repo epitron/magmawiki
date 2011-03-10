@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :wikisessions
+  has_many :wiki_sessions
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable,

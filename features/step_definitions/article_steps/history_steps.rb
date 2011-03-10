@@ -2,12 +2,16 @@ Given /^(?:|I )am reading an article with (\d+) revision(?:|s)$/ do |number_of_r
   # This is a bundle of mess because of the way our wikisessions model is (not) working.
   number_of_revisions = number_of_revisions.to_i
   @article = Factory.create(:article)
-  @user = Factory.create(:user)  
+  @user = Factory.create(:user)
+  ws_id = WikiSession.create(:user_id => @user)
+  ws_id.save!
   number_of_revisions.times do |i|
-    revision = @article.revisions.build(:body => "text")
-    revision.wiki_session = WikiSession.create(:user_id => @user)
+    revision = @article.revisions.build(:body => "text") #, :wiki_session_id => ws_id)
+    #revision.create_wiki_session(:user_id => @user)
     revision.engine_name = "wikicloth"
     revision.save!
+    ws_id.revisions << revision
+    ws_id.save!
   end
   Given "I am on article #{@article.title}"
 end
@@ -16,16 +20,20 @@ Given /^(?:|I )am reading an article with (\d+) revision(?:|s) and revision (\d+
   # This is a bundle of mess because of the way our wikisessions model is (not) working.
   number_of_revisions = number_of_revisions.to_i
   @article = Factory.create(:article)
-  @user = Factory.create(:user)  
+  @user = Factory.create(:user)
+  ws_id = WikiSession.create(:user_id => @user)
+  ws_id.save!
   number_of_revisions.times do |i|
     if i+1 == r_id.to_i then
-      revision = @article.revisions.build(:body => r_text)
+      revision = @article.revisions.build(:body => r_text) #, :wiki_session_id => ws_id)
     else
       revision = @article.revisions.build(:body => i)
     end
-    revision.wiki_session = WikiSession.create(:user_id => @user)
+    #revision.create_wikisession(:user_id => @user)
     revision.engine_name = "wikicloth"
     revision.save!
+    ws_id.revisions << revision
+    ws_id.save!
   end
   Given "I am on article #{@article.title}"
 end
