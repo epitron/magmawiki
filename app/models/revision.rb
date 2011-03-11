@@ -23,6 +23,10 @@ MARKUP_ENGINES = {
 		  "PAGENAME" => Article.find_by_id(article_id).title
 	  }
     ).to_html
+  end,
+
+  "markdown" => proc do |body, article_id|
+    "Markdown!!!!!!!!!!!!"  
   end
 }
 
@@ -33,7 +37,7 @@ class Revision < ActiveRecord::Base
   has_many :revisions, :through => :article_id
   has_many :threads
   
-  attr_accessible :wiki_session_id
+  #attr_accessible :wiki_session_id
 
   def next
     Revision.first(:conditions=>["article_id = ? and updated_at > ?", article_id, updated_at])

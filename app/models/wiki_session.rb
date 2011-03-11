@@ -16,5 +16,5 @@ class WikiSession < ActiveRecord::Base
   has_many :revisions
   belongs_to :user
   
-  attr_accessible :ip_address, :user_id
+  #attr_accessible :ip_address, :user_id
 end

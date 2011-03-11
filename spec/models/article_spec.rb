@@ -64,7 +64,7 @@ describe Article do
   end
   
   context 'titles' do
-    it 'should be muteable' do
+    it 'should be mutable' do
       title = Hash.new
       title['original'] = "Some title."
       title['valid']    = "Some !titlE!!!!~@)!(*#)"

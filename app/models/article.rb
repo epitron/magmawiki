@@ -30,7 +30,7 @@ class Article < ActiveRecord::Base
   ## Attributes
   
   accepts_nested_attributes_for :current_revision, :revisions
-  attr_accessible :title
+  #attr_accessible :title
 
   
   ## Validations
